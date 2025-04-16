@@ -31,7 +31,7 @@ def get_sorted_months():
     return sorted_months
 
 # Function to get and sort VODs by timestamp within a month folder
-def get_sorted_vods(month_folder):
+def get_sorted_vods(month_folder,kickonly,twitchonly):
     month_url = base_url + month_folder + "/"
     response = requests.get(month_url)
     soup = BeautifulSoup(response.text, 'html.parser')
@@ -46,7 +46,14 @@ def get_sorted_vods(month_folder):
             if timestamp:
                 try:
                     timestamp = datetime.strptime(timestamp, "%Y-%b-%d %H:%M")
-                    vod_links.append((link['href'], timestamp))
+                    if (kickonly):
+                        if 'kickapilol' in link['href']:
+                            vod_links.append((link['href'], timestamp))
+                    elif (twitchonly):
+                        if 'kickapilol' not in link['href']:
+                            vod_links.append((link['href'], timestamp))
+                    else:
+                        vod_links.append((link['href'], timestamp))
                 except ValueError:
                     continue  # Skip any entries that don't have a valid timestamp
 
@@ -55,15 +62,19 @@ def get_sorted_vods(month_folder):
     return sorted_vods
 
 # Function to download VODs from the most recent month
-def download_vods(month_folder, count=5):
-    sorted_vods = get_sorted_vods(month_folder)
+def download_vods(month_folder, count=5, kickonly=False, dlfolder='vod_downloads',twitchonly=False):
+    sorted_vods = get_sorted_vods(month_folder,kickonly,twitchonly)
+
+    # comment these in to test fetch without actual download
+    # print(sorted_vods)
+    # return
 
     if not sorted_vods:
         print(f"No VODs found in the month folder: {month_folder}")
         return
 
     # Create a folder for the downloads if it doesn't exist
-    download_folder = 'vod_downloads'
+    download_folder = dlfolder
     if not os.path.exists(download_folder):
         os.makedirs(download_folder)
 
@@ -95,10 +106,12 @@ def main():
     parser = argparse.ArgumentParser(description="Download VODs from the Wubby TV archive.")
     parser.add_argument('month_folder', help='The folder name of the month to download VODs from')
     parser.add_argument('-c', '--count', type=int, default=5, help='Number of VODs to download (default: 5)')
-    
+    parser.add_argument('-dlf', help='The folder name to download to.')
+    parser.add_argument('-k', '--kick', action='store_true', help='Kick Vods Only')
+    parser.add_argument('-t', '--twitch', action='store_true', help='Twitch Vods Only')
     args = parser.parse_args()
     
-    download_vods(args.month_folder, count=args.count)
+    download_vods(args.month_folder, count=args.count, dlfolder=args.dlf, kickonly=args.kick, twitchonly=args.twitch)
 
 if __name__ == "__main__":
     main()
