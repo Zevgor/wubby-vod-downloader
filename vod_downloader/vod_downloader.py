@@ -81,14 +81,16 @@ def download_vods(month_folder, count=5, kickonly=False, dlfolder='vod_downloads
     # Initialize a progress bar with `tqdm`
     for i, (vod_link, _) in enumerate(tqdm(sorted_vods[:count], desc="Downloading VODs", unit="VOD", dynamic_ncols=True)):
         vod_url = base_url + month_folder + "/" + vod_link
-        vod_filename = os.path.join(download_folder, vod_link.split('/')[-1])
+        ymd=sorted_vods[:count][0][1].strftime('%Y-%m-')
+        vod_filename = os.path.join(download_folder,ymd+vod_link.split('/')[-1])
 
         # Check if the VOD has already been downloaded
         if os.path.exists(vod_filename):
             print(f"Skipping {vod_filename}, already downloaded.")
             continue  # Skip this VOD if it already exists
 
-        print(f"Downloading VOD {i+1}: {vod_url}")
+        print(f"Downloading VOD {i+1}: {vod_url} to {vod_filename}")
+        # return
         response = requests.get(vod_url, stream=True)
         
         # Save the VOD to a file with progress
