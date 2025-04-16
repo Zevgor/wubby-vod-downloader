@@ -24,7 +24,7 @@ wubby-snatch month -c <number_of_vods>
 
 Month: Specify the month in `MMM_YYYY` format (e.g., `mar_2025`) from which you want to download VODs.
 
--c <number_of_vods>: Specify how many VODs you want to download. For example, `-c 5` to download the 5 most recent VODs.
+-c <number_of_vods> (optional): Specify how many VODs you want to download. For example, `-c 5` to download the 5 most recent VODs. Default is 1.
 
 -dlf <path to folder> (optional): Specify the full file path of where to download VODs. If not specified, will revert to default.
 
