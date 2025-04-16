@@ -73,6 +73,7 @@ def download_vods(month_folder, count=5, kickonly=False, dlfolder='vod_downloads
         print(f"No VODs found in the month folder: {month_folder}")
         return
 
+    print(dlfolder)
     # Create a folder for the downloads if it doesn't exist
     download_folder = dlfolder
     if not os.path.exists(download_folder):
@@ -107,8 +108,8 @@ def download_vods(month_folder, count=5, kickonly=False, dlfolder='vod_downloads
 def main():
     parser = argparse.ArgumentParser(description="Download VODs from the Wubby TV archive.")
     parser.add_argument('month_folder', help='The folder name of the month to download VODs from')
-    parser.add_argument('-c', '--count', type=int, default=5, help='Number of VODs to download (default: 5)')
-    parser.add_argument('-dlf', help='The folder name to download to.')
+    parser.add_argument('-c', '--count', nargs='?', default=1, type=int, help='Number of VODs to download (default: 5)')
+    parser.add_argument('-dlf', nargs='?', default='vod_downloads', help='The folder name to download to.')
     parser.add_argument('-k', '--kick', action='store_true', help='Kick Vods Only')
     parser.add_argument('-t', '--twitch', action='store_true', help='Twitch Vods Only')
     args = parser.parse_args()
