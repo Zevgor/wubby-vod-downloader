@@ -12,7 +12,7 @@ pip install wubby-vod-downloader==1.1.0
 
 ## Usage
 
-Navigate to the directory where you want to store your VODs. The script will create a new folder named `vod_downloads` where the files will be saved.
+Navigate to the directory where you want to store your VODs. By default, the script will create a new folder named `vod_downloads` where the files will be saved.
 
 Run the command to download your desired VODs:
 
@@ -24,15 +24,25 @@ wubby-snatch month -c <number_of_vods>
 
 Month: Specify the month in `MMM_YYYY` format (e.g., `mar_2025`) from which you want to download VODs.
 
--c <number_of_vods>: Specify how many VODs you want to download. For example, `-c 5` to download the 5 most recent VODs.
+-c <number_of_vods> (optional): Specify how many VODs you want to download. For example, `-c 5` to download the 5 most recent VODs. Default is 1.
 
-## Example
+-dlf <path to folder> (optional): Specify the full file path of where to download VODs. If not specified, will revert to default.
+
+-k (optional): Kick Streams Only
+
+-t (optional): Twitch Streams Only
+
+## Examples
 
 ```bash
 wubby-snatch mar_2025 -c 5
 ```
-
 This will download the 5 most recent VODs from March 2025.
+
+```bash
+ wubby-snatch apr_2025 -c 6 -dlf "V:\Stream VODs" -k
+```
+This will download the 6 most recent Kick VODs from April, 2025 to "V:\Stream VODs".
 
 ## Skipping Already Downloaded VODs
 
