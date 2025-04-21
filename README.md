@@ -37,7 +37,7 @@ Month: Specify the month in `MMM_YYYY` format (e.g., `mar_2025`) from which you 
 ```bash
 wubby-snatch mar_2025 -c 5
 ```
-This will download the 5 most recent VODs from March 2025.
+This will download the 5 most recent VODs from April 2025.
 
 ```bash
  wubby-snatch apr_2025 -c 6 -dlf "V:\Stream VODs" -k
