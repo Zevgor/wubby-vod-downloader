@@ -7,7 +7,7 @@ A simple script to snatch those autism VODs from the Wubby TV archive, for when 
 Install this package from PyPI using `pip`:
 
 ```bash
-pip install wubby-vod-downloader==1.2.0
+pip install wubby-vod-downloader==1.3.0
 ```
 
 ## Usage
