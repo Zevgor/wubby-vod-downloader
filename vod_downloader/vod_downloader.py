@@ -42,10 +42,11 @@ def get_sorted_vods(month_folder,kickonly,twitchonly):
         link = row.find('a', href=True)
         if link and link['href'].endswith('.mp4'):
             # Get the VOD timestamp (the date part) for sorting
-            timestamp = row.find_all('td')[2].text.strip()
+            timestamp = row.find_all('td')[1].text.strip()
+            timestamp = timestamp.strip(r"[a-zA-Z]")
             if timestamp:
                 try:
-                    timestamp = datetime.strptime(timestamp, "%Y-%b-%d %H:%M")
+                    timestamp = datetime.strptime(timestamp, "%Y-%m-%d %H:%M")
                     if (kickonly):
                         if 'kickapilol' in link['href']:
                             vod_links.append((link['href'], timestamp))
