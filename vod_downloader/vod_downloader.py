@@ -59,15 +59,14 @@ def get_sorted_vods(month_folder,kickonly,twitchonly):
                     continue  # Skip any entries that don't have a valid timestamp
 
     # Sort VODs by timestamp (descending order)
-    sorted_vods = sorted(vod_links, key=lambda x: x[1], reverse=True)
+    sorted_vods = sorted(vod_links, key=lambda x: x[0][-18:], reverse=True)
     return sorted_vods
 
 # Function to download VODs from the most recent month
 def download_vods(month_folder, count=5, kickonly=False, dlfolder='vod_downloads',twitchonly=False):
     sorted_vods = get_sorted_vods(month_folder,kickonly,twitchonly)
 
-    # comment these in to test fetch without actual download
-    # print(sorted_vods)
+    # comment this in to test fetch without actual download
     # return
 
     if not sorted_vods:
